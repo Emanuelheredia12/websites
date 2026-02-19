@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Automation Blueprint — Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0f0e0b;
+    --paper: #f5f0e8;
+    --cream: #ede7d9;
+    --accent: #c8410a;
+    --accent2: #1a4d2e;
+    --gold: #b8962e;
+    --muted: #6b6355;
+    --rule: rgba(15,14,11,0.12);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 79px,
+      var(--rule) 79px,
+      var(--rule) 80px
+    );
+    pointer-events: none;
+  }
+
+  .hero-left {
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .series-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    display: inline-block;
+    padding: 5px 12px;
+    margin-bottom: 36px;
+    width: fit-content;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 6vw, 86px);
+    font-weight: 900;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+
+  .hero-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .hero-sub {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(14px, 1.6vw, 18px);
+    font-weight: 400;
+    font-style: italic;
+    color: var(--muted);
+    margin-bottom: 48px;
+    max-width: 400px;
+    line-height: 1.5;
+  }
+
+  .hero-stats {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    max-width: 380px;
+  }
+
+  .stat {
+    border-top: 2px solid var(--ink);
+    padding-top: 16px;
+  }
+
+  .stat-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .stat-label {
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .hero-right {
+    background: var(--ink);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .hero-right::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200,65,10,0.25) 0%, transparent 70%);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .book-graphic {
+    position: relative;
+    z-index: 1;
+    text-align: center;
+    padding: 60px;
+  }
+
+  .book-cover {
+    width: 220px;
+    height: 300px;
+    background: linear-gradient(135deg, #1a1a14 0%, #2a2a1e 100%);
+    border: 1px solid rgba(184,150,46,0.4);
+    border-left: 6px solid var(--gold);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 28px 24px;
+    box-shadow: 16px 16px 40px rgba(0,0,0,0.6), -4px 0 0 rgba(0,0,0,0.4);
+    margin: 0 auto 28px;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px) rotate(-1deg); }
+    50% { transform: translateY(-12px) rotate(-1deg); }
+  }
+
+  .bc-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 8px;
+    letter-spacing: 0.2em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+
+  .bc-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: #f5f0e8;
+    line-height: 1.1;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .bc-rule {
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    margin: 0 auto 12px;
+  }
+
+  .bc-sub {
+    font-family: 'Playfair Display', serif;
+    font-size: 9px;
+    font-style: italic;
+    color: rgba(245,240,232,0.6);
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  .hero-right-text {
+    color: rgba(245,240,232,0.5);
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section {
+    padding: 100px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    max-width: 60px;
+    height: 1px;
+    background: var(--muted);
+  }
+
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin-bottom: 20px;
+  }
+
+  .section-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  /* ── FREEDOM LEVELS TABLE ── */
+  .levels-section {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 100px 60px;
+  }
+
+  .levels-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .levels-section .section-label {
+    color: rgba(245,240,232,0.4);
+  }
+
+  .levels-section .section-label::after {
+    background: rgba(245,240,232,0.2);
+  }
+
+  .levels-section .section-title {
+    color: var(--paper);
+  }
+
+  .levels-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 60px;
+    border: 1px solid rgba(245,240,232,0.15);
+  }
+
+  .level-card {
+    padding: 40px 32px;
+    border-right: 1px solid rgba(245,240,232,0.12);
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .level-card:last-child { border-right: none; }
+
+  .level-card:hover {
+    background: rgba(245,240,232,0.04);
+  }
+
+  .level-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    color: rgba(245,240,232,0.06);
+    line-height: 1;
+    position: absolute;
+    top: 24px;
+    right: 20px;
+  }
+
+  .level-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+
+  .level-card:nth-child(1) .level-badge { background: rgba(200,65,10,0.2); color: #e07050; }
+  .level-card:nth-child(2) .level-badge { background: rgba(184,150,46,0.2); color: var(--gold); }
+  .level-card:nth-child(3) .level-badge { background: rgba(26,77,46,0.3); color: #5db87a; }
+  .level-card:nth-child(4) .level-badge { background: rgba(100,120,255,0.2); color: #8899ff; }
+
+  .level-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--paper);
+  }
+
+  .level-role {
+    font-size: 12px;
+    color: rgba(245,240,232,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+
+  .level-rev {
+    font-family: 'DM Mono', monospace;
+    font-size: 14px;
+    color: var(--gold);
+    border-top: 1px solid rgba(245,240,232,0.1);
+    padding-top: 16px;
+  }
+
+  .level-desc {
+    font-size: 13px;
+    color: rgba(245,240,232,0.55);
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  /* ── AUTOMATIONS ── */
+  .automations-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    margin-top: 60px;
+    background: var(--rule);
+  }
+
+  .automation-card {
+    background: var(--paper);
+    padding: 36px 40px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.2s;
+  }
+
+  .automation-card:hover { background: var(--cream); }
+
+  .auto-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 12px;
+  }
+
+  .auto-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .auto-trigger {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 4px 10px;
+    display: inline-block;
+    margin-bottom: 14px;
+    letter-spacing: 0.05em;
+  }
+
+  .auto-desc {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .auto-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    margin-top: 16px;
+  }
+
+  /* ── SUPPORT PYRAMID ── */
+  .pyramid-section {
+    background: var(--cream);
+    padding: 100px 60px;
+  }
+
+  .pyramid-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .pyramid-levels {
+    margin-top: 20px;
+  }
+
+  .pyramid-level {
+    display: grid;
+    grid-template-columns: 60px 1fr;
+    gap: 20px;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: start;
+  }
+
+  .pl-pct {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .pl-pct.l1 { color: var(--accent2); }
+  .pl-pct.l2 { color: var(--gold); }
+  .pl-pct.l3 { color: var(--accent); }
+  .pl-pct.l4 { color: var(--muted); }
+
+  .pl-name {
+    font-weight: 500;
+    font-size: 15px;
+    margin-bottom: 4px;
+  }
+
+  .pl-detail {
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  /* ── DELEGATION TABLE ── */
+  .delegation-section {
+    padding: 100px 60px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .del-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 50px;
+    font-size: 14px;
+  }
+
+  .del-table th {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 12px 20px;
+    text-align: left;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .del-table td {
+    padding: 20px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+
+  .del-table tr:hover td { background: var(--cream); }
+
+  .priority-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 500;
+    border: 1px solid var(--ink);
+  }
+
+  .cost-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent2);
+  }
+
+  .hours-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--accent);
+  }
+
+  /* ── KEY INSIGHT PULL QUOTE ── */
+  .insight-block {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 60px;
+    text-align: center;
+  }
+
+  .insight-inner {
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  .insight-icon {
+    font-size: 32px;
+    margin-bottom: 24px;
+    opacity: 0.6;
+  }
+
+  .insight-quote {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 3vw, 34px);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.4;
+    margin-bottom: 24px;
+    color: var(--paper);
+  }
+
+  .insight-quote strong {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--gold);
+  }
+
+  .insight-attr {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    color: rgba(245,240,232,0.35);
+  }
+
+  /* ── 90-DAY ROADMAP ── */
+  .roadmap-section {
+    background: var(--cream);
+    padding: 100px 60px;
+  }
+
+  .roadmap-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .roadmap-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 60px;
+    border-top: 3px solid var(--ink);
+  }
+
+  .roadmap-phase {
+    padding: 36px 32px;
+    border-right: 1px solid var(--rule);
+  }
+
+  .roadmap-phase:last-child { border-right: none; }
+
+  .rp-weeks {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    margin-bottom: 16px;
+  }
+
+  .rp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 20px;
+    line-height: 1.2;
+  }
+
+  .rp-items {
+    list-style: none;
+  }
+
+  .rp-items li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 6px 0;
+    border-bottom: 1px dotted rgba(107,99,85,0.3);
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.4;
+  }
+
+  .rp-items li::before {
+    content: '→';
+    color: var(--accent);
+    font-size: 11px;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  /* ── CTA ── */
+  .cta-section {
+    padding: 120px 60px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cta-section::before {
+    content: 'AUTOMATE';
+    font-family: 'Playfair Display', serif;
+    font-size: 180px;
+    font-weight: 900;
+    color: rgba(15,14,11,0.04);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+    pointer-events: none;
+    letter-spacing: -0.05em;
+  }
+
+  .cta-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(36px, 5vw, 58px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .cta-title em {
+    font-style: italic;
+    color: var(--accent);
+  }
+
+  .cta-body {
+    color: var(--muted);
+    font-size: 16px;
+    margin-bottom: 40px;
+    line-height: 1.7;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--paper);
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 18px 44px;
+    border: 2px solid var(--ink);
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+
+  .cta-btn:hover {
+    background: transparent;
+    color: var(--ink);
+  }
+
+  .cta-note {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 20px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    width: 100%;
+    height: 2px;
+    background: var(--rule);
+  }
+
+  /* ── TOOL STACK ── */
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: var(--rule);
+    margin-top: 50px;
+  }
+
+  .tool-card {
+    background: var(--paper);
+    padding: 28px 32px;
+  }
+
+  .tool-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+
+  .tool-use {
+    font-size: 13px;
+    color: var(--muted);
+    margin-bottom: 12px;
+    line-height: 1.5;
+  }
+
+  .tool-price {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--accent2);
+    letter-spacing: 0.05em;
+  }
+
+  /* responsive */
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 60px 32px; }
+    .section { padding: 60px 32px; }
+    .levels-grid { grid-template-columns: 1fr 1fr; }
+    .automations-grid { grid-template-columns: 1fr; }
+    .pyramid-inner { grid-template-columns: 1fr; }
+    .roadmap-grid { grid-template-columns: 1fr 1fr; }
+    .tools-grid { grid-template-columns: 1fr 1fr; }
+    .levels-section { padding: 60px 32px; }
+    .pyramid-section { padding: 60px 32px; }
+    .delegation-section { padding: 60px 32px; }
+    .roadmap-section { padding: 60px 32px; }
+    .cta-section { padding: 80px 32px; }
+    .insight-block { padding: 60px 32px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-left">
+    <span class="series-tag">The Digital Gold Rush Series · 2026 Edition</span>
+    <h1 class="hero-title">The<br><em>Automation</em><br>Blueprint</h1>
+    <p class="hero-sub">How to Systematize, Automate, and Delegate Your Digital Product Business for Scalable Growth</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-number">10</div>
+        <div class="stat-label">In-depth chapters</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">7</div>
+        <div class="stat-label">Core automations</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">90</div>
+        <div class="stat-label">Day roadmap</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">20+</div>
+        <div class="stat-label">hrs/week reclaimed</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="book-graphic">
+      <div class="book-cover">
+        <div class="bc-tag">The Digital Gold Rush Series</div>
+        <div class="bc-title">THE AUTOMATION BLUEPRINT</div>
+        <div class="bc-rule"></div>
+        <div class="bc-sub">How to Systematize, Automate, and Delegate Your Digital Product Business</div>
+      </div>
+      <div class="hero-right-text">2026 EDITION · PREVIEW</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FREEDOM LEVELS ── -->
+<section class="levels-section">
+  <div class="levels-inner">
+    <div class="section-label" style="color:rgba(245,240,232,0.35)">Chapter 1 · The Automation Mindset</div>
+    <h2 class="section-title" style="color:var(--paper)">The Four Levels of<br><em>Business Freedom</em></h2>
+    <div class="levels-grid">
+      <div class="level-card">
+        <div class="level-num">1</div>
+        <div class="level-badge">Operator</div>
+        <div class="level-name">You Do Everything</div>
+        <div class="level-desc">Manually handling every task. You are the marketer, support agent, bookkeeper, and creator. Nothing gets done exceptionally well.</div>
+        <div class="level-role">Your role: Worker</div>
+        <div class="level-rev">$1K – $5K / month</div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">2</div>
+        <div class="level-badge">Automator</div>
+        <div class="level-name">Systems Handle Repetition</div>
+        <div class="level-desc">Repetitive tasks run on autopilot. Email sequences, payments, delivery, and reporting happen without you.</div>
+        <div class="level-role">Your role: Manager of systems</div>
+        <div class="level-rev">$5K – $20K / month</div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">3</div>
+        <div class="level-badge">Delegator</div>
+        <div class="level-name">People Handle Execution</div>
+        <div class="level-desc">A small team executes under your direction. You focus on strategy, relationships, and product vision.</div>
+        <div class="level-role">Your role: Director</div>
+        <div class="level-rev">$20K – $50K / month</div>
+      </div>
+      <div class="level-card">
+        <div class="level-num">4</div>
+        <div class="level-badge">Architect</div>
+        <div class="level-name">Systems &amp; People Run It</div>
+        <div class="level-desc">The business runs without your daily involvement. You operate as a strategist, visionary, and owner.</div>
+        <div class="level-role">Your role: Strategist</div>
+        <div class="level-rev">$50K – $500K+ / month</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 7 AUTOMATIONS ── -->
+<section class="section">
+  <div class="section-label">Chapter 3 · Workflow Automation</div>
+  <h2 class="section-title">7 Essential Automations<br><em>Every Business Needs</em></h2>
+  <p style="color:var(--muted); max-width:600px; font-size:15px;">Each workflow connects your tools so they work together automatically — with no coding required for most of them.</p>
+
+  <div class="automations-grid">
+    <div class="automation-card">
+      <div class="auto-num">01 · 30 minutes to build</div>
+      <div class="auto-title">New Customer Onboarding</div>
+      <div class="auto-trigger">TRIGGER: Purchase complete</div>
+      <div class="auto-desc">Welcome email, product access, customer segment tagging, CRM record creation, and Slack notification — all fire simultaneously the moment payment clears.</div>
+      <div class="auto-time">⚡ Recommended: Zapier or n8n</div>
+    </div>
+    <div class="automation-card">
+      <div class="auto-num">02 · 15 minutes to build</div>
+      <div class="auto-title">Review Request Pipeline</div>
+      <div class="auto-trigger">TRIGGER: 7 days post-purchase</div>
+      <div class="auto-desc">Personalized review request sent at Day 7. Automated follow-up at Day 10 if no response. Respondents tagged as brand advocates automatically.</div>
+      <div class="auto-time">⚡ Recommended: Email platform natively</div>
+    </div>
+    <div class="automation-card">
+      <div class="auto-num">03 · 1–2 hours to build</div>
+      <div class="auto-title">Content Repurposing Pipeline</div>
+      <div class="auto-trigger">TRIGGER: New blog post or video published</div>
+      <div class="auto-desc">AI extracts key points, formats for each social platform — Twitter thread, LinkedIn post, Instagram carousel, TikTok script — and schedules everything automatically.</div>
+      <div class="auto-time">⚡ Recommended: n8n + OpenAI</div>
+    </div>
+    <div class="automation-card">
+      <div class="auto-num">04 · 1–2 hours to build</div>
+      <div class="auto-title">Lead Scoring</div>
+      <div class="auto-trigger">TRIGGER: Subscriber opens, clicks, or visits</div>
+      <div class="auto-desc">Score increases with each engagement. Interest tags applied automatically. When a threshold is hit, a high-intent sales sequence is triggered — no manual intervention needed.</div>
+      <div class="auto-time">⚡ Recommended: ActiveCampaign or n8n</div>
+    </div>
+    <div class="automation-card">
+      <div class="auto-num">05 · 30 minutes to build</div>
+      <div class="auto-title">Abandoned Cart Recovery</div>
+      <div class="auto-trigger">TRIGGER: Checkout started, not completed</div>
+      <div class="auto-desc">Hour 1: recovery email. Hour 24: second email with incentive. Hour 48: urgency email. A three-touch sequence running entirely without you — recovering revenue around the clock.</div>
+      <div class="auto-time">⚡ Recommended: ThriveCart or Shopify</div>
+    </div>
+    <div class="automation-card">
+      <div class="auto-num">06 · 1–2 hours to build</div>
+      <div class="auto-title">Financial Dashboard</div>
+      <div class="auto-trigger">TRIGGER: Daily or weekly schedule</div>
+      <div class="auto-desc">Pulls revenue and refund data from Stripe, updates a live Google Sheet dashboard, and emails a weekly summary — so you always have a clear financial picture.</div>
+      <div class="auto-time">⚡ Recommended: Make or n8n</div>
+    </div>
+    <div class="automation-card">
+      <div class="auto-num">07 · 1–2 hours to build</div>
+      <div class="auto-title">AI Content Generation</div>
+      <div class="auto-trigger">TRIGGER: New idea added to Notion</div>
+      <div class="auto-desc">Topic sent to OpenAI API for a first draft, saved to Google Docs, editing task created in your project tool, and team notified — a full content workflow on a single trigger.</div>
+      <div class="auto-time">⚡ Recommended: n8n (best AI integration)</div>
+    </div>
+    <div class="automation-card" style="background:var(--ink); color:var(--paper); display:flex; align-items:center; justify-content:center; text-align:center; padding:40px;">
+      <div>
+        <div style="font-family:'Playfair Display',serif; font-size:22px; font-weight:700; margin-bottom:12px; font-style:italic; color:var(--paper);">"Start with #1 and #2. Add one automation per week."</div>
+        <div style="font-family:'DM Mono',monospace; font-size:11px; color:rgba(245,240,232,0.4); letter-spacing:0.1em;">KEY INSIGHT — CHAPTER 3</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INSIGHT QUOTE ── -->
+<div class="insight-block">
+  <div class="insight-inner">
+    <div class="insight-icon">◈</div>
+    <p class="insight-quote">
+      "Every hour you spend on a <strong>$15-per-hour task</strong> is an hour you're not spending on a <strong>$500-per-hour task</strong>. If it doesn't require your unique expertise — it should not be on your plate."
+    </p>
+    <div class="insight-attr">KEY INSIGHT — CHAPTER 1: THE AUTOMATION MINDSET</div>
+  </div>
+</div>
+
+<!-- ── SUPPORT PYRAMID ── -->
+<section class="pyramid-section">
+  <div class="pyramid-inner">
+    <div>
+      <div class="section-label">Chapter 4 · Customer Support</div>
+      <h2 class="section-title">Handle 90% of<br><em>Inquiries Automatically</em></h2>
+      <p style="color:var(--muted); font-size:15px; margin-bottom:8px;">The Support System Pyramid routes inquiries to the right level — so human effort is reserved only for what actually requires it.</p>
+    </div>
+    <div>
+      <div class="pyramid-levels">
+        <div class="pyramid-level">
+          <div class="pl-pct l1">45%</div>
+          <div>
+            <div class="pl-name">Level 1 — Self-Service</div>
+            <div class="pl-detail">FAQ page and knowledge base handles common questions automatically. Zero human involvement.</div>
+          </div>
+        </div>
+        <div class="pyramid-level">
+          <div class="pl-pct l2">30%</div>
+          <div>
+            <div class="pl-name">Level 2 — AI Chatbot</div>
+            <div class="pl-detail">Tidio, Intercom, Crisp, or a custom n8n + OpenAI bot handles dynamic questions and troubleshooting.</div>
+          </div>
+        </div>
+        <div class="pyramid-level">
+          <div class="pl-pct l3">13%</div>
+          <div>
+            <div class="pl-name">Level 3 — Templates</div>
+            <div class="pl-detail">Standard issues resolved by a VA using saved reply templates. Response target: 4 hours.</div>
+          </div>
+        </div>
+        <div class="pyramid-level">
+          <div class="pl-pct l4">7%</div>
+          <div>
+            <div class="pl-name">Level 4 — Human Escalation</div>
+            <div class="pl-detail">Complex issues, refunds over $50, and VIP interactions. Owner or senior VA only. 24-hour target.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DELEGATION TABLE ── -->
+<section class="delegation-section">
+  <div class="section-label">Chapter 6 · The Delegation Framework</div>
+  <h2 class="section-title">What to Delegate<br><em>First — and How Much It Costs</em></h2>
+  <table class="del-table">
+    <thead>
+      <tr>
+        <th>Priority</th>
+        <th>Task</th>
+        <th>Who to Hire</th>
+        <th>Monthly Cost</th>
+        <th>Hours Freed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><div class="priority-badge">1</div></td>
+        <td><strong>Social Media Scheduling</strong></td>
+        <td>Social media VA</td>
+        <td><span class="cost-tag">$400 – $800</span></td>
+        <td><span class="hours-tag">8–15 hrs/wk</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge">2</div></td>
+        <td><strong>Customer Support Emails</strong></td>
+        <td>Support VA</td>
+        <td><span class="cost-tag">$300 – $600</span></td>
+        <td><span class="hours-tag">5–10 hrs/wk</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge">3</div></td>
+        <td><strong>Graphic Design</strong></td>
+        <td>Freelance designer</td>
+        <td><span class="cost-tag">$200 – $500</span></td>
+        <td><span class="hours-tag">3–6 hrs/wk</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge">4</div></td>
+        <td><strong>Blog Writing &amp; SEO</strong></td>
+        <td>Freelance writer</td>
+        <td><span class="cost-tag">$300 – $800</span></td>
+        <td><span class="hours-tag">4–8 hrs/wk</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge">5</div></td>
+        <td><strong>Video Editing</strong></td>
+        <td>Video editor</td>
+        <td><span class="cost-tag">$300 – $1,000</span></td>
+        <td><span class="hours-tag">4–10 hrs/wk</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge">6</div></td>
+        <td><strong>Bookkeeping</strong></td>
+        <td>Virtual bookkeeper</td>
+        <td><span class="cost-tag">$200 – $400</span></td>
+        <td><span class="hours-tag">2–4 hrs/wk</span></td>
+      </tr>
+      <tr>
+        <td><div class="priority-badge">7</div></td>
+        <td><strong>Ad Management</strong></td>
+        <td>Ad specialist</td>
+        <td><span class="cost-tag">$500 – $1,500</span></td>
+        <td><span class="hours-tag">5–10 hrs/wk</span></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- ── 90-DAY ROADMAP ── -->
+<section class="roadmap-section">
+  <div class="roadmap-inner">
+    <div class="section-label">Chapter 10 · Implementation</div>
+    <h2 class="section-title">Your 90-Day<br><em>Automation Roadmap</em></h2>
+    <div class="roadmap-grid">
+      <div class="roadmap-phase">
+        <div class="rp-weeks">Weeks 1–2</div>
+        <div class="rp-title">Audit &amp; Foundation</div>
+        <ul class="rp-items">
+          <li>Complete 7-day time audit</li>
+          <li>Categorize: Eliminate, Automate, Delegate, Focus</li>
+          <li>Set up automation platform</li>
+          <li>Automate sales funnel</li>
+          <li>Build FAQ with top 20 questions</li>
+          <li>Create first 3 SOPs</li>
+        </ul>
+      </div>
+      <div class="roadmap-phase">
+        <div class="rp-weeks">Weeks 3–4</div>
+        <div class="rp-title">Automate &amp; Document</div>
+        <ul class="rp-items">
+          <li>Build customer onboarding automation</li>
+          <li>Set up review request workflow</li>
+          <li>Configure help desk or chatbot</li>
+          <li>Automate financial tracking</li>
+          <li>Write all marketing &amp; support SOPs</li>
+          <li>Set up content repurposing</li>
+        </ul>
+      </div>
+      <div class="roadmap-phase">
+        <div class="rp-weeks">Weeks 5–8</div>
+        <div class="rp-title">Hire &amp; Delegate</div>
+        <ul class="rp-items">
+          <li>Post first job listing (social VA)</li>
+          <li>Paid test tasks with 3–5 candidates</li>
+          <li>Onboard first hire with SOPs + Loom</li>
+          <li>Implement weekly management rhythm</li>
+          <li>Hire second specialist</li>
+          <li>Build content approval workflow</li>
+        </ul>
+      </div>
+      <div class="roadmap-phase">
+        <div class="rp-weeks">Weeks 9–12</div>
+        <div class="rp-title">Optimize &amp; Scale</div>
+        <ul class="rp-items">
+          <li>Audit all automations for failures</li>
+          <li>Structured team performance review</li>
+          <li>Add advanced automations</li>
+          <li>Delegate next product creation</li>
+          <li>Build weekly metrics dashboard</li>
+          <li>Plan next quarter with new capacity</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TOOL STACK PREVIEW ── -->
+<section class="section">
+  <div class="section-label">Platform Comparison</div>
+  <h2 class="section-title">Choose Your<br><em>Automation Platform</em></h2>
+  <div class="tools-grid">
+    <div class="tool-card">
+      <div class="tool-name">Zapier</div>
+      <div class="tool-use">Best for non-technical creators who need fast setup. 8,000+ app integrations. Easiest learning curve.</div>
+      <div class="tool-price">Free → $20/month · Easiest</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">Make</div>
+      <div class="tool-use">Visual workflow builder with powerful branching logic. Ideal for complex, multi-step operations at lower cost.</div>
+      <div class="tool-price">Free → $9/month · Moderate</div>
+    </div>
+    <div class="tool-card">
+      <div class="tool-name">n8n</div>
+      <div class="tool-use">Most powerful. Native AI integration with OpenAI, Claude &amp; Hugging Face. Self-host for full data privacy.</div>
+      <div class="tool-price">Free self-hosted → $24/month · Advanced</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <div class="cta-inner">
+    <h2 class="cta-title">Build the Machine,<br><em>Then Let It Run.</em></h2>
+    <p class="cta-body">By week 8, you will have reclaimed 20+ hours per week. By week 12, your business runs with minimal daily involvement. The investment compounds — and it starts with the first automation you build today.</p>
+    <a class="cta-btn" href="#">Get The Full Blueprint →</a>
+    <p class="cta-note">Includes 10 chapters · SOP templates · AI prompts · Worksheets · Tool comparisons</p>
+  </div>
+</section>
+
+</body>
+</html>
