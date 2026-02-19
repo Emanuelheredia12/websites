@@ -1,0 +1,1843 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Digital Gold Rush — Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0b0a07;
+    --surface: #141310;
+    --surface2: #1c1a16;
+    --gold: #c9922a;
+    --gold-light: #e8b84b;
+    --gold-dim: rgba(201,146,42,0.15);
+    --text: #ede6d8;
+    --muted: #8a8070;
+    --rule: rgba(237,230,216,0.08);
+    --accent-green: #3d6b4f;
+    --accent-red: #8b3a2a;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Outfit', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 70% 50%, rgba(201,146,42,0.07) 0%, transparent 60%),
+      repeating-linear-gradient(90deg, transparent, transparent 119px, var(--rule) 119px, var(--rule) 120px);
+    pointer-events: none;
+  }
+
+  .hero-left {
+    padding: 100px 70px 80px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    border-right: 1px solid var(--rule);
+  }
+
+  .edition-tag {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .edition-tag::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(54px, 6.5vw, 92px);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  .hero-title .the {
+    font-weight: 400;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 0.55em;
+    display: block;
+  }
+
+  .hero-title .gold { color: var(--gold-light); }
+
+  .hero-subtitle {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(14px, 1.4vw, 17px);
+    font-style: italic;
+    color: var(--muted);
+    margin: 28px 0 52px;
+    max-width: 420px;
+    line-height: 1.6;
+  }
+
+  .hero-promise {
+    background: var(--gold-dim);
+    border-left: 2px solid var(--gold);
+    padding: 20px 24px;
+    max-width: 420px;
+    margin-bottom: 48px;
+  }
+
+  .hp-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+
+  .hp-text {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .hero-nums {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    border-top: 1px solid var(--rule);
+    padding-top: 32px;
+    max-width: 480px;
+  }
+
+  .hnum {
+    padding-right: 20px;
+    border-right: 1px solid var(--rule);
+    margin-right: 20px;
+  }
+  .hnum:last-child { border-right: none; margin-right: 0; padding-right: 0; }
+
+  .hnum-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 34px;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+
+  .hnum-lbl {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+
+  .hero-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    padding: 60px;
+  }
+
+  .book-wrap {
+    perspective: 1000px;
+  }
+
+  .book-3d {
+    width: 240px;
+    height: 320px;
+    position: relative;
+    transform: rotateY(-12deg) rotateX(3deg);
+    transform-style: preserve-3d;
+    animation: bookFloat 5s ease-in-out infinite;
+  }
+
+  @keyframes bookFloat {
+    0%, 100% { transform: rotateY(-12deg) rotateX(3deg) translateY(0); }
+    50% { transform: rotateY(-12deg) rotateX(3deg) translateY(-14px); }
+  }
+
+  .book-face {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(160deg, #1a1505 0%, #0d0b04 60%, #1a1505 100%);
+    border: 1px solid rgba(201,146,42,0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 28px;
+    box-shadow:
+      4px 0 0 #050401,
+      8px 0 0 #0a0901,
+      12px 4px 30px rgba(0,0,0,0.8);
+  }
+
+  .book-ornament {
+    width: 48px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-bottom: 20px;
+  }
+
+  .book-title-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+    line-height: 1.1;
+    margin-bottom: 8px;
+  }
+
+  .book-the {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 13px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .book-gold-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold-light);
+    text-align: center;
+    line-height: 1.0;
+  }
+
+  .book-divider {
+    width: 60px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 16px auto;
+  }
+
+  .book-sub-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 9px;
+    font-style: italic;
+    color: rgba(237,230,216,0.4);
+    text-align: center;
+    line-height: 1.6;
+    letter-spacing: 0.03em;
+  }
+
+  .book-year {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    margin-top: 20px;
+  }
+
+  /* ─── SHARED SECTION STYLES ─── */
+  .section-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    width: 40px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  .section-h {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(32px, 4vw, 52px);
+    font-weight: 700;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+
+  .section-h em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .section-body {
+    font-size: 15px;
+    color: var(--muted);
+    max-width: 580px;
+    line-height: 1.75;
+  }
+
+  /* ─── WHY SECTION ─── */
+  .why-section {
+    padding: 110px 70px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    max-width: 1300px;
+    margin: 0 auto;
+    align-items: start;
+  }
+
+  .core-framework {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 48px;
+    position: relative;
+  }
+
+  .cf-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 32px;
+    text-align: center;
+  }
+
+  .cf-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .cf-item {
+    padding: 24px 0;
+    border-bottom: 1px solid var(--rule);
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 20px;
+    align-items: start;
+  }
+
+  .cf-item:last-child { border-bottom: none; }
+
+  .cf-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+  }
+
+  .cf-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .cf-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .cf-center-label {
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    color: var(--muted);
+    font-size: 13px;
+    padding: 20px 0;
+    border-top: 1px solid var(--rule);
+    margin-top: 8px;
+  }
+
+  .pipeline-table {
+    margin-top: 40px;
+  }
+
+  .pt-row {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 12px;
+    align-items: center;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--rule);
+    font-size: 13px;
+  }
+
+  .pt-row:first-child {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    padding-bottom: 12px;
+  }
+
+  .pt-pain { color: var(--text); }
+  .pt-arrow { color: var(--gold); font-size: 16px; }
+  .pt-product { color: var(--gold-light); font-style: italic; font-family: 'Cormorant Garamond', serif; font-size: 15px; }
+
+  /* ─── COMPARISON TABLE ─── */
+  .comparison-section {
+    background: var(--surface);
+    padding: 100px 70px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .comparison-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .comp-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 50px;
+    font-size: 14px;
+  }
+
+  .comp-table th {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 16px 24px;
+    text-align: left;
+    border-bottom: 1px solid rgba(201,146,42,0.4);
+  }
+
+  .comp-table th:last-child {
+    color: var(--gold);
+  }
+
+  .comp-table td {
+    padding: 18px 24px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+
+  .comp-table tr:hover td { background: rgba(255,255,255,0.02); }
+
+  .comp-table td:first-child {
+    color: var(--muted);
+    font-size: 13px;
+  }
+
+  .comp-bad { color: #8b5a4a; }
+  .comp-good { color: #5a9970; }
+
+  /* ─── 5 TRIGGERS ─── */
+  .triggers-section {
+    padding: 110px 70px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .triggers-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 2px;
+    background: var(--rule);
+    margin-top: 56px;
+  }
+
+  .trigger-card {
+    background: var(--bg);
+    padding: 36px 28px;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.25s;
+  }
+
+  .trigger-card:hover { background: var(--surface); }
+
+  .trigger-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transition: transform 0.3s;
+    transform-origin: left;
+  }
+
+  .trigger-card:hover::before { transform: scaleX(1); }
+
+  .trig-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 700;
+    color: rgba(201,146,42,0.1);
+    line-height: 1;
+    margin-bottom: 12px;
+  }
+
+  .trig-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .trig-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .trig-science {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-top: 14px;
+  }
+
+  /* ─── VALUE FORMULA ─── */
+  .formula-section {
+    background: var(--surface);
+    padding: 80px 70px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+    text-align: center;
+  }
+
+  .formula-inner { max-width: 900px; margin: 0 auto; }
+
+  .formula-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 32px;
+  }
+
+  .formula-display {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(18px, 2.5vw, 28px);
+    font-weight: 600;
+    line-height: 1.3;
+    color: var(--text);
+    margin-bottom: 36px;
+  }
+
+  .formula-display .frac {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    vertical-align: middle;
+    margin: 0 8px;
+  }
+
+  .formula-display .frac-top { border-bottom: 2px solid var(--gold); padding-bottom: 4px; }
+  .formula-display .frac-bot { padding-top: 4px; }
+
+  .formula-display .gold-term { color: var(--gold-light); }
+  .formula-display .div-sign { color: var(--gold); font-size: 1.4em; vertical-align: middle; margin: 0 6px; }
+  .formula-display .mult-sign { color: var(--muted); margin: 0 4px; }
+
+  .formula-levers {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 12px;
+    text-align: left;
+  }
+
+  .fl-item {
+    background: var(--bg);
+    padding: 20px;
+    border: 1px solid var(--rule);
+  }
+
+  .fl-action {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 0.1em;
+    margin-bottom: 8px;
+  }
+
+  .fl-text {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.5;
+  }
+
+  /* ─── PRICING SCIENCE ─── */
+  .pricing-section {
+    padding: 110px 70px;
+    max-width: 1300px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: start;
+  }
+
+  .pricing-principles {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    margin-top: 40px;
+  }
+
+  .pp-item {
+    background: var(--surface);
+    padding: 24px 28px;
+    border-left: 2px solid transparent;
+    transition: border-color 0.25s;
+    cursor: default;
+  }
+
+  .pp-item:hover { border-left-color: var(--gold); }
+
+  .pp-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .pp-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .pricing-tiers {
+    margin-top: 40px;
+  }
+
+  .tier-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+  }
+
+  .tier-card {
+    background: var(--surface);
+    border: 1px solid var(--rule);
+    padding: 32px 36px;
+    margin-bottom: 3px;
+    position: relative;
+    transition: border-color 0.25s;
+  }
+
+  .tier-card.featured {
+    border-color: rgba(201,146,42,0.4);
+    background: var(--surface2);
+  }
+
+  .tier-badge {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    padding: 4px 10px;
+    margin-bottom: 12px;
+    display: inline-block;
+  }
+
+  .tier-card:nth-child(1) .tier-badge { background: var(--surface2); color: var(--muted); border: 1px solid var(--rule); }
+  .tier-card.featured .tier-badge { background: var(--gold-dim); color: var(--gold); border: 1px solid rgba(201,146,42,0.3); }
+  .tier-card:nth-child(3) .tier-badge { background: var(--surface2); color: var(--muted); border: 1px solid var(--rule); }
+
+  .tier-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .tier-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── FUNNEL ARCH ─── */
+  .funnel-section {
+    background: var(--surface);
+    padding: 110px 70px;
+    border-top: 1px solid var(--rule);
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .funnel-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .funnel-stages {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0;
+    margin-top: 60px;
+    position: relative;
+  }
+
+  .funnel-stages::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  }
+
+  .fs-stage {
+    padding: 0 16px;
+    padding-top: 64px;
+    text-align: center;
+    position: relative;
+  }
+
+  .fs-dot {
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 2px solid var(--gold);
+    z-index: 1;
+  }
+
+  .fs-stage:nth-child(3) .fs-dot,
+  .fs-stage:nth-child(4) .fs-dot { background: var(--gold); }
+
+  .fs-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+
+  .fs-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    line-height: 1.2;
+  }
+
+  .fs-desc {
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .funnel-metrics {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    background: var(--rule);
+    margin-top: 50px;
+  }
+
+  .fm-item {
+    background: var(--bg);
+    padding: 20px 16px;
+    text-align: center;
+  }
+
+  .fm-metric {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+
+  .fm-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 8px;
+    color: var(--muted);
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+  }
+
+  .fm-name {
+    font-size: 11px;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  /* ─── VALUE LADDER ─── */
+  .ladder-section {
+    padding: 110px 70px;
+    max-width: 1300px;
+    margin: 0 auto;
+  }
+
+  .ladder-viz {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+
+  .ladder-rung {
+    display: grid;
+    grid-template-columns: 100px 1fr auto;
+    gap: 0;
+    align-items: stretch;
+    position: relative;
+  }
+
+  .lr-label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 20px;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+
+  .lr-bar {
+    display: flex;
+    align-items: center;
+    padding: 20px 28px;
+    position: relative;
+  }
+
+  .ladder-rung:nth-child(1) .lr-bar { background: rgba(201,146,42,0.06); }
+  .ladder-rung:nth-child(2) .lr-bar { background: rgba(201,146,42,0.10); }
+  .ladder-rung:nth-child(3) .lr-bar { background: rgba(201,146,42,0.15); }
+  .ladder-rung:nth-child(4) .lr-bar { background: rgba(201,146,42,0.21); }
+  .ladder-rung:nth-child(5) .lr-bar { background: rgba(201,146,42,0.28); }
+
+  .lr-type {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-right: 16px;
+    color: var(--text);
+  }
+
+  .lr-example {
+    font-size: 13px;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  .lr-price {
+    display: flex;
+    align-items: center;
+    padding: 20px 28px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--gold-light);
+    background: var(--surface);
+    white-space: nowrap;
+    border-left: 1px solid var(--rule);
+    min-width: 140px;
+    justify-content: flex-end;
+  }
+
+  .ladder-math {
+    background: var(--surface);
+    border: 1px solid rgba(201,146,42,0.2);
+    padding: 32px 40px;
+    margin-top: 24px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 40px;
+    align-items: center;
+  }
+
+  .lm-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+
+  .lm-example {
+    font-size: 14px;
+    color: var(--muted);
+    line-height: 1.8;
+  }
+
+  .lm-example strong { color: var(--text); }
+  .lm-example .amt { color: var(--gold-light); font-family: 'Cormorant Garamond', serif; font-size: 16px; font-weight: 600; }
+
+  .lm-total {
+    text-align: right;
+  }
+
+  .lm-total-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 700;
+    color: var(--gold-light);
+    line-height: 1;
+  }
+
+  .lm-total-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--muted);
+    letter-spacing: 0.15em;
+  }
+
+  /* ─── FATAL MISTAKES ─── */
+  .mistakes-section {
+    background: var(--surface);
+    padding: 110px 70px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .mistakes-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .mistakes-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+    background: var(--rule);
+    margin-top: 50px;
+  }
+
+  .mistake-card {
+    background: var(--bg);
+    padding: 32px 36px;
+    border-left: 2px solid transparent;
+    transition: all 0.25s;
+  }
+
+  .mistake-card:hover {
+    background: var(--surface2);
+    border-left-color: var(--accent-red);
+  }
+
+  .mk-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    color: rgba(139,58,42,0.7);
+    letter-spacing: 0.15em;
+    margin-bottom: 10px;
+  }
+
+  .mk-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text);
+  }
+
+  .mk-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  /* ─── PULL QUOTE ─── */
+  .quote-section {
+    padding: 100px 70px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--rule);
+  }
+
+  .quote-section::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 400px;
+    font-weight: 700;
+    color: rgba(201,146,42,0.04);
+    position: absolute;
+    top: -60px;
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .quote-inner {
+    max-width: 780px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .quote-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(22px, 3vw, 36px);
+    font-style: italic;
+    font-weight: 400;
+    line-height: 1.4;
+    margin-bottom: 28px;
+    color: var(--text);
+  }
+
+  .quote-text strong {
+    font-style: normal;
+    font-weight: 700;
+    color: var(--gold-light);
+  }
+
+  .quote-src {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    color: var(--muted);
+  }
+
+  /* ─── 90-DAY PLAN ─── */
+  .plan-section {
+    background: var(--surface2);
+    padding: 110px 70px;
+    border-top: 1px solid var(--rule);
+  }
+
+  .plan-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .plan-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0;
+    margin-top: 60px;
+  }
+
+  .plan-phase {
+    border-right: 1px solid var(--rule);
+    padding: 0 32px;
+  }
+
+  .plan-phase:first-child { padding-left: 0; }
+  .plan-phase:last-child { border-right: none; padding-right: 0; }
+
+  .pp-weeks {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    color: var(--gold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .pp-phase-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    margin-bottom: 24px;
+    line-height: 1.1;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 20px;
+  }
+
+  .pp-tasks {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+
+  .pp-tasks li {
+    font-size: 13px;
+    color: var(--muted);
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.4;
+  }
+
+  .pp-tasks li::before {
+    content: '→';
+    color: var(--gold);
+    font-size: 11px;
+    margin-top: 1px;
+    flex-shrink: 0;
+    font-family: 'Space Mono', monospace;
+  }
+
+  /* ─── CTA ─── */
+  .cta-section {
+    padding: 130px 70px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    border-top: 1px solid var(--rule);
+  }
+
+  .cta-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(201,146,42,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .cta-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 1;
+  }
+
+  .cta-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.3em;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .cta-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(40px, 6vw, 68px);
+    font-weight: 700;
+    line-height: 1.0;
+    letter-spacing: -0.02em;
+    margin-bottom: 24px;
+  }
+
+  .cta-title em {
+    font-style: italic;
+    color: var(--gold-light);
+  }
+
+  .cta-body {
+    font-size: 16px;
+    color: var(--muted);
+    margin-bottom: 48px;
+    line-height: 1.75;
+  }
+
+  .cta-btn {
+    display: inline-block;
+    background: var(--gold);
+    color: var(--bg);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    text-decoration: none;
+    padding: 18px 48px;
+    font-weight: 700;
+    transition: all 0.25s;
+    cursor: pointer;
+  }
+
+  .cta-btn:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(201,146,42,0.25);
+  }
+
+  .cta-includes {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+
+  .ci-item {
+    font-family: 'Space Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.15em;
+    color: var(--muted);
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .ci-item::before {
+    content: '✦';
+    color: var(--gold);
+    font-size: 8px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 1000px) {
+    .hero { grid-template-columns: 1fr; min-height: auto; }
+    .hero-right { display: none; }
+    .hero-left { padding: 70px 32px; }
+    .hero-nums { grid-template-columns: repeat(4, 1fr); }
+    .why-section { grid-template-columns: 1fr; padding: 60px 32px; gap: 40px; }
+    .comparison-section { padding: 70px 32px; }
+    .triggers-grid { grid-template-columns: 1fr 1fr; }
+    .formula-section { padding: 60px 32px; }
+    .formula-levers { grid-template-columns: 1fr 1fr; }
+    .pricing-section { grid-template-columns: 1fr; padding: 60px 32px; gap: 40px; }
+    .funnel-section { padding: 70px 32px; }
+    .funnel-stages { grid-template-columns: 1fr 1fr 1fr; }
+    .funnel-metrics { grid-template-columns: repeat(4, 1fr); }
+    .ladder-section { padding: 70px 32px; }
+    .mistakes-section { padding: 70px 32px; }
+    .mistakes-grid { grid-template-columns: 1fr; }
+    .quote-section { padding: 70px 32px; }
+    .plan-section { padding: 70px 32px; }
+    .plan-grid { grid-template-columns: 1fr 1fr; gap: 32px; }
+    .plan-phase { border-right: none; padding: 0; border-bottom: 1px solid var(--rule); padding-bottom: 32px; }
+    .triggers-section { padding: 70px 32px; }
+    .cta-section { padding: 90px 32px; }
+    .cta-includes { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ── -->
+<section class="hero">
+  <div class="hero-bg-pattern"></div>
+  <div class="hero-left">
+    <div class="edition-tag">2026 Edition · Complete Blueprint</div>
+    <h1 class="hero-title">
+      <span class="the">The</span>
+      <span class="gold">Digital<br>Gold Rush</span>
+    </h1>
+    <p class="hero-subtitle">Creating, Launching, and Scaling Profitable Digital Products — with Behavioral Science, Proven Strategy, and Step-by-Step Worksheets</p>
+    <div class="hero-promise">
+      <div class="hp-label">What this book delivers</div>
+      <div class="hp-text">The difference between a product that earns $47 and one that earns $47,000 comes down to strategy, positioning, psychology, and execution. This book teaches you all four.</div>
+    </div>
+    <div class="hero-nums">
+      <div class="hnum">
+        <div class="hnum-val">13</div>
+        <div class="hnum-lbl">Chapters</div>
+      </div>
+      <div class="hnum">
+        <div class="hnum-val">7</div>
+        <div class="hnum-lbl">Product types</div>
+      </div>
+      <div class="hnum">
+        <div class="hnum-val">5</div>
+        <div class="hnum-lbl">Buy triggers</div>
+      </div>
+      <div class="hnum">
+        <div class="hnum-val">90</div>
+        <div class="hnum-lbl">Day action plan</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="book-wrap">
+      <div class="book-3d">
+        <div class="book-face">
+          <div class="book-ornament"></div>
+          <div class="book-the">The</div>
+          <div class="book-title-text">DIGITAL</div>
+          <div class="book-gold-text">GOLD RUSH</div>
+          <div class="book-divider"></div>
+          <div class="book-sub-text">The Complete Blueprint for Creating, Launching, and Scaling Profitable Digital Products</div>
+          <div class="book-year">2026 EDITION</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── WHY + PIPELINE ── -->
+<section style="background: var(--bg); border-bottom: 1px solid var(--rule);">
+  <div class="why-section">
+    <div>
+      <div class="section-label">Chapter 1 · Your Foundation</div>
+      <h2 class="section-h">Purpose Is<br><em>Your Engine</em></h2>
+      <p class="section-body" style="margin-bottom: 32px;">Before niches, platforms, or pricing — you need your Why. Money alone won't keep you going through bad launches and self-doubt. The Core Framework uncovers something deeper: a purpose rooted in your own experience.</p>
+      <div class="pipeline-table">
+        <div class="pt-row">
+          <span>Your Pain</span>
+          <span class="pt-arrow">→</span>
+          <span>Your Product</span>
+        </div>
+        <div class="pt-row">
+          <span class="pt-pain">Financial hardship</span>
+          <span class="pt-arrow">→</span>
+          <span class="pt-product">Budget planner, debt course</span>
+        </div>
+        <div class="pt-row">
+          <span class="pt-pain">Career failure</span>
+          <span class="pt-arrow">→</span>
+          <span class="pt-product">Resume kit, pivot guide</span>
+        </div>
+        <div class="pt-row">
+          <span class="pt-pain">Health struggle</span>
+          <span class="pt-arrow">→</span>
+          <span class="pt-product">Meal plan, habit tracker</span>
+        </div>
+        <div class="pt-row">
+          <span class="pt-pain">Creative block</span>
+          <span class="pt-arrow">→</span>
+          <span class="pt-product">Design templates, workflow system</span>
+        </div>
+        <div class="pt-row">
+          <span class="pt-pain">Entrepreneurial failure</span>
+          <span class="pt-arrow">→</span>
+          <span class="pt-product">Startup toolkit, automation templates</span>
+        </div>
+      </div>
+    </div>
+    <div class="core-framework">
+      <div class="cf-title">The Core Framework</div>
+      <div class="cf-items">
+        <div class="cf-item">
+          <div class="cf-num">01</div>
+          <div>
+            <div class="cf-name">Your Values</div>
+            <div class="cf-desc">The non-negotiable principles that guide your life — freedom, creativity, integrity. A business built on your values doesn't feel like work. It becomes magnetic.</div>
+          </div>
+        </div>
+        <div class="cf-item">
+          <div class="cf-num">02</div>
+          <div>
+            <div class="cf-name">Your Pain</div>
+            <div class="cf-desc">Every scar you carry is a lesson someone else is desperate to learn. Pain is not something to hide — it's your most powerful qualification. Nobody wants advice from someone who's never struggled.</div>
+          </div>
+        </div>
+        <div class="cf-item">
+          <div class="cf-num">03</div>
+          <div>
+            <div class="cf-name">Your Action</div>
+            <div class="cf-desc">Values without action are nice ideas. Pain without action is just suffering. Your Why must be strong enough to make you write when you don't feel creative and market when nothing is working.</div>
+          </div>
+        </div>
+      </div>
+      <div class="cf-center-label">"I help [who] overcome [what pain] so they can [achieve what outcome] — because I've been there and know the way through."</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DIGITAL vs PHYSICAL ── -->
+<section class="comparison-section">
+  <div class="comparison-inner">
+    <div class="section-label">Chapter 2 · The Landscape</div>
+    <h2 class="section-h">Why Digital Products<br><em>Win Every Time</em></h2>
+    <table class="comp-table">
+      <thead>
+        <tr>
+          <th>Factor</th>
+          <th>Physical Products</th>
+          <th>Digital Products</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Startup Cost</td>
+          <td><span class="comp-bad">$500 – $50,000+</span></td>
+          <td><span class="comp-good">$0 – $500</span></td>
+        </tr>
+        <tr>
+          <td>Inventory Risk</td>
+          <td><span class="comp-bad">High — unsold stock</span></td>
+          <td><span class="comp-good">None</span></td>
+        </tr>
+        <tr>
+          <td>Shipping & Logistics</td>
+          <td><span class="comp-bad">Complex, expensive</span></td>
+          <td><span class="comp-good">Instant delivery</span></td>
+        </tr>
+        <tr>
+          <td>Profit Margins</td>
+          <td><span class="comp-bad">20–50% typical</span></td>
+          <td><span class="comp-good">70–95% typical</span></td>
+        </tr>
+        <tr>
+          <td>Scalability</td>
+          <td><span class="comp-bad">Linear — more units = more cost</span></td>
+          <td><span class="comp-good">Infinite — zero marginal cost</span></td>
+        </tr>
+        <tr>
+          <td>Geographic Reach</td>
+          <td><span class="comp-bad">Limited by shipping</span></td>
+          <td><span class="comp-good">Global, instant</span></td>
+        </tr>
+        <tr>
+          <td>Time to Market</td>
+          <td><span class="comp-bad">Weeks to months</span></td>
+          <td><span class="comp-good">Days to weeks</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ── 5 BUYING TRIGGERS ── -->
+<section class="triggers-section">
+  <div class="section-label">Chapter 4 · Buyer Psychology</div>
+  <h2 class="section-h">The Five Triggers That<br><em>Drive Every Purchase</em></h2>
+  <p class="section-body">Behavioral science reveals the psychological levers behind every digital product sale. Understanding these is more valuable than any copywriting formula.</p>
+
+  <div class="triggers-grid">
+    <div class="trigger-card">
+      <div class="trig-num">1</div>
+      <div class="trig-name">Pain Avoidance</div>
+      <div class="trig-desc">People pay more to avoid pain than to gain pleasure. Frame your product as escape from a specific, urgent suffering — not as a feature list.</div>
+      <div class="trig-science">Nobel Prize · Kahneman Loss Aversion</div>
+    </div>
+    <div class="trigger-card">
+      <div class="trig-num">2</div>
+      <div class="trig-name">Time Compression</div>
+      <div class="trig-desc">Modern buyers are time-starved. Quantify the hours your product saves. "Saves you 20 hours of design work" outsells any benefit statement.</div>
+      <div class="trig-science">Premium for efficiency · Templates & swipe files</div>
+    </div>
+    <div class="trigger-card">
+      <div class="trig-num">3</div>
+      <div class="trig-name">Identity &amp; Aspiration</div>
+      <div class="trig-desc">People buy the person they want to become. A fitness planner isn't about tracking — it represents the disciplined, healthy self the buyer aspires to be.</div>
+      <div class="trig-science">Identity transformation · Not information</div>
+    </div>
+    <div class="trigger-card">
+      <div class="trig-num">4</div>
+      <div class="trig-name">Social Proof</div>
+      <div class="trig-desc">When people see others have purchased and benefited, resistance drops dramatically. Testimonials are your single most powerful conversion tool.</div>
+      <div class="trig-science">Cialdini · 6 Principles of Persuasion</div>
+    </div>
+    <div class="trigger-card">
+      <div class="trig-num">5</div>
+      <div class="trig-name">Scarcity &amp; Urgency</div>
+      <div class="trig-desc">Limited-time pricing helps people overcome procrastination. Not manipulation — a legitimate strategy. The key is authenticity: never fake scarcity.</div>
+      <div class="trig-science">Early-bird pricing · Launch windows</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VALUE FORMULA ── -->
+<section class="formula-section">
+  <div class="formula-inner">
+    <div class="formula-label">Chapter 4 · Value Perception Formula</div>
+    <div class="formula-display">
+      Perceived Value &nbsp;=&nbsp;
+      <span class="frac">
+        <span class="frac-top"><span class="gold-term">Dream Outcome</span> &times; <span class="gold-term">Likelihood of Success</span></span>
+        <span class="frac-bot">Time Delay &times; Effort Required</span>
+      </span>
+    </div>
+    <div class="formula-levers">
+      <div class="fl-item">
+        <div class="fl-action">↑ Increase</div>
+        <div class="fl-text"><strong style="color:var(--text)">Dream Outcome</strong> — Make the promise bigger, more specific, more emotionally resonant.</div>
+      </div>
+      <div class="fl-item">
+        <div class="fl-action">↑ Increase</div>
+        <div class="fl-text"><strong style="color:var(--text)">Perceived Likelihood</strong> — Add testimonials, guarantees, case studies, and credentials.</div>
+      </div>
+      <div class="fl-item">
+        <div class="fl-action">↓ Decrease</div>
+        <div class="fl-text"><strong style="color:var(--text)">Time Delay</strong> — Promise faster results. "In 30 days" beats "eventually." Speed sells.</div>
+      </div>
+      <div class="fl-item">
+        <div class="fl-action">↓ Decrease</div>
+        <div class="fl-text"><strong style="color:var(--text)">Effort Required</strong> — Add done-for-you elements, templates, and simplification. Easy sells.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PRICING ── -->
+<section style="border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule);">
+  <div class="pricing-section">
+    <div>
+      <div class="section-label">Chapter 6 · Pricing Science</div>
+      <h2 class="section-h">Pricing Is<br><em>Psychology</em></h2>
+      <p class="section-body">A counterintuitive truth: raising your price often increases sales. When buyers can't evaluate quality before purchase — which is always true with digital products — they use price as a quality signal.</p>
+      <div class="pricing-principles">
+        <div class="pp-item">
+          <div class="pp-name">Charm Pricing</div>
+          <div class="pp-desc">$97 outsells $100. The left-digit effect makes the first number disproportionately important. Use prices ending in 7 or 9 for all digital products.</div>
+        </div>
+        <div class="pp-item">
+          <div class="pp-name">Anchoring</div>
+          <div class="pp-desc">Present a higher reference price first. Show what private coaching costs ($997) before revealing your course at $197. The anchor shapes every subsequent judgment.</div>
+        </div>
+        <div class="pp-item">
+          <div class="pp-name">The Decoy Effect</div>
+          <div class="pp-desc">The middle tier exists to be chosen. The top tier makes it look reasonable. The bottom tier pushes buyers upward. Three tiers always outperform one.</div>
+        </div>
+        <div class="pp-item">
+          <div class="pp-name">Price-Quality Inference</div>
+          <div class="pp-desc">A $7 ebook signals low quality. A $47 ebook signals comprehensive, professional expertise. New creators almost always underprice — and it costs them trust.</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="tier-label">The Three-Tier Model</div>
+      <div class="pricing-tiers">
+        <div class="tier-card">
+          <div class="tier-badge">BASIC</div>
+          <div class="tier-name">Core Product</div>
+          <div class="tier-desc">The product alone, no extras. Serves price-sensitive buyers and creates a low-friction entry point into your ecosystem.</div>
+        </div>
+        <div class="tier-card featured">
+          <div class="tier-badge">✦ STANDARD — Best Value</div>
+          <div class="tier-name">Core + Bonuses + Community</div>
+          <div class="tier-desc">Core product plus worksheets, bonus materials, and community access. Label this your recommended option. Most buyers choose this tier.</div>
+        </div>
+        <div class="tier-card">
+          <div class="tier-badge">PREMIUM</div>
+          <div class="tier-name">Everything + Personal Access</div>
+          <div class="tier-desc">Standard plus personal feedback, live sessions, or direct coaching. Serves high-value buyers and makes Standard look like a bargain.</div>
+        </div>
+        <div style="margin-top: 24px; padding: 20px; background: var(--gold-dim); border: 1px solid rgba(201,146,42,0.2); font-size: 13px; color: var(--muted); line-height: 1.6;">
+          <span style="color:var(--gold); font-family:'Space Mono',monospace; font-size:9px; letter-spacing:0.15em; display:block; margin-bottom:8px;">LAUNCH STRATEGY</span>
+          Start 40–50% below your target price. After 50–100 sales, raise to standard. After 200+ reviews, raise to premium. Always grandfather existing customers.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FUNNEL ── -->
+<section class="funnel-section">
+  <div class="funnel-inner">
+    <div class="section-label">Chapter 10 · Automated Sales Funnels</div>
+    <h2 class="section-h">The Evergreen Machine<br><em>That Sells While You Sleep</em></h2>
+    <p class="section-body">A properly built funnel converts strangers into buyers automatically — 24 hours a day. The key insight most people miss: never try to go from discovery directly to sale. You must earn trust first.</p>
+
+    <div class="funnel-stages">
+      <div class="fs-stage">
+        <div class="fs-dot"></div>
+        <div class="fs-num">Stage 01</div>
+        <div class="fs-title">Traffic Source</div>
+        <div class="fs-desc">Blog, social, YouTube, podcast, or paid ad. Strangers discover you here.</div>
+      </div>
+      <div class="fs-stage">
+        <div class="fs-dot"></div>
+        <div class="fs-num">Stage 02</div>
+        <div class="fs-title">Lead Magnet Page</div>
+        <div class="fs-desc">Free resource in exchange for email. One offer, one CTA, no distractions.</div>
+      </div>
+      <div class="fs-stage">
+        <div class="fs-dot"></div>
+        <div class="fs-num">Stage 03</div>
+        <div class="fs-title">Thank You + Tripwire</div>
+        <div class="fs-desc">Low-cost offer ($7–$27) converts 5–15% of new subscribers immediately.</div>
+      </div>
+      <div class="fs-stage">
+        <div class="fs-dot"></div>
+        <div class="fs-num">Stage 04</div>
+        <div class="fs-title">Email Nurture</div>
+        <div class="fs-desc">7–14 value emails over 2–3 weeks. Trust before pitch. Always.</div>
+      </div>
+      <div class="fs-stage">
+        <div class="fs-dot"></div>
+        <div class="fs-num">Stage 05</div>
+        <div class="fs-title">Core Offer Page</div>
+        <div class="fs-desc">Full sales page: story, proof, offer, FAQ, guarantee, urgency.</div>
+      </div>
+      <div class="fs-stage">
+        <div class="fs-dot"></div>
+        <div class="fs-num">Stage 06</div>
+        <div class="fs-title">Upsell</div>
+        <div class="fs-desc">Post-purchase offer. Highest-conversion moment. Buyer is in buying mode.</div>
+      </div>
+    </div>
+
+    <div class="funnel-metrics">
+      <div class="fm-item">
+        <div class="fm-label">Target</div>
+        <div class="fm-metric">25–50%</div>
+        <div class="fm-name">Opt-in Rate</div>
+      </div>
+      <div class="fm-item">
+        <div class="fm-label">Target</div>
+        <div class="fm-metric">5–15%</div>
+        <div class="fm-name">Tripwire Conversion</div>
+      </div>
+      <div class="fm-item">
+        <div class="fm-label">Target</div>
+        <div class="fm-metric">25–40%</div>
+        <div class="fm-name">Email Open Rate</div>
+      </div>
+      <div class="fm-item">
+        <div class="fm-label">Target</div>
+        <div class="fm-metric">3–7%</div>
+        <div class="fm-name">Email Click Rate</div>
+      </div>
+      <div class="fm-item">
+        <div class="fm-label">Target</div>
+        <div class="fm-metric">2–5%</div>
+        <div class="fm-name">Sales Page Conversion</div>
+      </div>
+      <div class="fm-item">
+        <div class="fm-label">Target</div>
+        <div class="fm-metric">2–3×</div>
+        <div class="fm-name">Customer Lifetime Value</div>
+      </div>
+      <div class="fm-item">
+        <div class="fm-label">Target</div>
+        <div class="fm-metric">&lt;⅓</div>
+        <div class="fm-name">Cost Per Acquisition</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── VALUE LADDER ── -->
+<section class="ladder-section">
+  <div class="section-label">Chapter 11 · Scaling to Six Figures</div>
+  <h2 class="section-h">The Value Ladder<br><em>Multiplies Every Sale</em></h2>
+  <p class="section-body">Instead of selling one product, you build an ascending series of offers. The same 10,000 email subscribers — at multiple ladder rungs — can generate over $150,000. This is the scaling math most creators never discover.</p>
+
+  <div class="ladder-viz">
+    <div class="ladder-rung">
+      <div class="lr-label">Free</div>
+      <div class="lr-bar">
+        <span class="lr-type">Lead Magnet</span>
+        <span class="lr-example">Blog posts, checklists, mini-guides, free templates</span>
+      </div>
+      <div class="lr-price">$0</div>
+    </div>
+    <div class="ladder-rung">
+      <div class="lr-label">Entry</div>
+      <div class="lr-bar">
+        <span class="lr-type">Starter Product</span>
+        <span class="lr-example">Low-cost ebook, template pack, or mini-course</span>
+      </div>
+      <div class="lr-price">$7 – $27</div>
+    </div>
+    <div class="ladder-rung">
+      <div class="lr-label">Core</div>
+      <div class="lr-bar">
+        <span class="lr-type">Flagship Product</span>
+        <span class="lr-example">Comprehensive course, toolkit, or membership</span>
+      </div>
+      <div class="lr-price">$47 – $297</div>
+    </div>
+    <div class="ladder-rung">
+      <div class="lr-label">Premium</div>
+      <div class="lr-bar">
+        <span class="lr-type">Group Coaching / Mastermind</span>
+        <span class="lr-example">High-value transformation, cohort, or certification</span>
+      </div>
+      <div class="lr-price">$497 – $2,997</div>
+    </div>
+    <div class="ladder-rung">
+      <div class="lr-label">Ultra</div>
+      <div class="lr-bar">
+        <span class="lr-type">1-on-1 / Licensing</span>
+        <span class="lr-example">Private consulting, licensing, white-label rights</span>
+      </div>
+      <div class="lr-price">$5,000+</div>
+    </div>
+  </div>
+
+  <div class="ladder-math">
+    <div>
+      <div class="lm-label">The Math — Same 10,000 Subscribers</div>
+      <div class="lm-example">
+        <strong>2,000 buyers</strong> × $17 entry product = <span class="amt">$34,000</span><br>
+        <strong>400 buyers</strong> × $197 core product = <span class="amt">$78,800</span><br>
+        <strong>40 buyers</strong> × $997 premium program = <span class="amt">$39,880</span>
+      </div>
+    </div>
+    <div class="lm-total">
+      <div class="lm-total-num">$152,680</div>
+      <div class="lm-total-label">From one audience · Three rungs</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PULL QUOTE ── -->
+<section class="quote-section">
+  <div class="quote-inner">
+    <p class="quote-text">"Your first product will not be perfect, and it does not need to be. It needs to <strong>exist</strong>. It needs to reach real people. It needs to solve a real problem. Everything else comes with iteration and experience."</p>
+    <div class="quote-src">CONCLUSION — THE DIGITAL GOLD RUSH</div>
+  </div>
+</section>
+
+<!-- ── FATAL MISTAKES ── -->
+<section class="mistakes-section">
+  <div class="mistakes-inner">
+    <div class="section-label">Chapter 12 · What Kills Digital Businesses</div>
+    <h2 class="section-h">Ten Fatal Mistakes<br><em>and How to Avoid Them</em></h2>
+    <div class="mistakes-grid">
+      <div class="mistake-card">
+        <div class="mk-num">MISTAKE 01</div>
+        <div class="mk-name">Building Before Validating</div>
+        <div class="mk-desc">The graveyard of digital products is full of beautifully designed courses nobody wanted. Pre-sell first. If people won't pay for a promise, they won't pay for a product.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mk-num">MISTAKE 02</div>
+        <div class="mk-name">Underpricing</div>
+        <div class="mk-desc">A $5 ebook signals low quality, attracts bargain hunters, and requires massive volume for meaningful income. Price based on transformation value, not page count.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mk-num">MISTAKE 03</div>
+        <div class="mk-name">Ignoring Email Marketing</div>
+        <div class="mk-desc">Social media followers are rented. Email subscribers are owned. Instagram can change its algorithm overnight. Your email list is the only asset you fully control.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mk-num">MISTAKE 04</div>
+        <div class="mk-name">Perfectionism</div>
+        <div class="mk-desc">Waiting until your product is perfect is procrastination in disguise. Version two is always better than version one — but only if version one exists.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mk-num">MISTAKE 05</div>
+        <div class="mk-name">Selling Features, Not Outcomes</div>
+        <div class="mk-desc">Nobody cares about 47 videos and 12 worksheets. They care about budgeting with confidence, losing 20 pounds, or starting a profitable side business. Always lead with the transformation.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mk-num">MISTAKE 06</div>
+        <div class="mk-name">One-and-Done Launching</div>
+        <div class="mk-desc">A single launch is not a business strategy. People need to see your offer 5–7 times before taking action. Build evergreen systems that sell daily, not just launch week.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mk-num">MISTAKE 07</div>
+        <div class="mk-name">Not Collecting Testimonials</div>
+        <div class="mk-desc">Every satisfied customer is a potential testimonial. Ask proactively. Send a specific question, not a vague request. Testimonials are the most effective sales tool in digital commerce.</div>
+      </div>
+      <div class="mistake-card">
+        <div class="mk-num">MISTAKE 08</div>
+        <div class="mk-name">Quitting Too Early</div>
+        <div class="mk-desc">Most digital product businesses take 3–6 months of consistent effort before significant revenue. The first few months are not a verdict — they're the tuition you pay to build something real.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 90-DAY PLAN ── -->
+<section class="plan-section">
+  <div class="plan-inner">
+    <div class="section-label">Chapter 13 · Execution</div>
+    <h2 class="section-h">Your 90-Day<br><em>Action Plan</em></h2>
+    <p class="section-body">Consistency beats intensity. One focused hour every day beats ten frantic hours once a week. Every task below is sequenced for maximum momentum with minimum wasted effort.</p>
+    <div class="plan-grid">
+      <div class="plan-phase">
+        <div class="pp-weeks">Weeks 1–2</div>
+        <div class="pp-phase-name">Foundation</div>
+        <ul class="pp-tasks">
+          <li>Complete all worksheets in Chapters 1–3</li>
+          <li>Analyze 10 competing products in your niche</li>
+          <li>Read 20 negative reviews — document the gaps</li>
+          <li>Choose primary and secondary sales platforms</li>
+          <li>Set up email marketing and create your lead magnet</li>
+          <li>Define product format, outline, and working title</li>
+        </ul>
+      </div>
+      <div class="plan-phase">
+        <div class="pp-weeks">Weeks 3–6</div>
+        <div class="pp-phase-name">Creation</div>
+        <ul class="pp-tasks">
+          <li>Build your MVP product</li>
+          <li>Design graphics, mockups, and thumbnails</li>
+          <li>Write sales page copy using the 5 triggers</li>
+          <li>Set pricing using the three-tier model</li>
+          <li>Recruit 10–15 beta testers for feedback</li>
+          <li>Begin pre-launch social content (3–5 posts/week)</li>
+          <li>Grow email list to 100+ before launch</li>
+        </ul>
+      </div>
+      <div class="plan-phase">
+        <div class="pp-weeks">Weeks 7–8</div>
+        <div class="pp-phase-name">Launch</div>
+        <ul class="pp-tasks">
+          <li>Execute the four-phase launch system</li>
+          <li>Send the five-email launch sequence</li>
+          <li>Post daily on primary platform during launch week</li>
+          <li>Collect and publish beta tester testimonials</li>
+          <li>Track all funnel metrics from Chapter 10</li>
+        </ul>
+      </div>
+      <div class="plan-phase">
+        <div class="pp-weeks">Weeks 9–12</div>
+        <div class="pp-phase-name">Scale</div>
+        <ul class="pp-tasks">
+          <li>Analyze launch data — what worked and what didn't</li>
+          <li>Build your automated evergreen funnel</li>
+          <li>Publish first piece of evergreen pillar content</li>
+          <li>Plan your second product for the Value Ladder</li>
+          <li>Test paid ads at $5–$10/day if conversion rate is proven</li>
+          <li>Reach out to 5 affiliate or collaboration partners</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+  <div class="cta-glow"></div>
+  <div class="cta-inner">
+    <div class="cta-eyebrow">The Digital Gold Rush — 2026 Edition</div>
+    <h2 class="cta-title">Your Success Story<br><em>Starts Now.</em></h2>
+    <p class="cta-body">The digital economy generates $54 billion annually and is projected to exceed $416 billion by 2030. The question is not whether the opportunity exists. The question is whether you'll seize it — starting today, starting imperfectly, starting now.</p>
+    <a class="cta-btn" href="#">Get the Complete Blueprint →</a>
+    <div class="cta-includes">
+      <div class="ci-item">13 Full Chapters</div>
+      <div class="ci-item">Behavioral Science Frameworks</div>
+      <div class="ci-item">Step-by-Step Worksheets</div>
+      <div class="ci-item">5 Buying Triggers Breakdown</div>
+      <div class="ci-item">Value Ladder Blueprint</div>
+      <div class="ci-item">90-Day Action Plan</div>
+    </div>
+  </div>
+</section>
+
+</body>
+</html>
