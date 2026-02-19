@@ -1,17 +1,5 @@
 {
-  "cleanUrls": true,
-  "rewrites": [
-    {
-      "source": "/automation",
-      "destination": "/automation-blueprint-preview.html"
-    },
-    {
-      "source": "/index",
-      "destination": "/2.index.html.html"
-    },
-    {
-      "source": "/rush",
-      "destination": "/Digital gold rush"
-    }
-  ]
+  "buildCommand": "echo 'Static site'",
+  "outputDirectory": ".",
+  "cleanUrls": true
 }
